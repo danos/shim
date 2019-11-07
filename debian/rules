@@ -1,0 +1,50 @@
+#!/usr/bin/make -f
+
+# Other vendors, add your certs here.  No sense in using
+# dpkg-vendor --derives-from, because only Canonical-generated binaries will
+# be signed with this key; so if you are building your own shim binary you
+# should be building the other binaries also.
+ifeq ($(shell dpkg-vendor --is ubuntu && echo yes),yes)
+	cert=debian/canonical-uefi-ca.der
+	distributor=ubuntu
+COMMON_OPTIONS ?= ENABLE_SHIM_CERT=1 ENABLE_SBSIGN=1
+else
+	cert=debian/debian-uefi-ca.der
+	distributor=debian
+endif
+
+include /usr/share/dpkg/architecture.mk
+export DEB_HOST_ARCH
+
+ifeq ($(DEB_HOST_ARCH),amd64)
+export EFI_ARCH := x64
+endif
+ifeq ($(DEB_HOST_ARCH),i386)
+export EFI_ARCH := ia32
+endif
+ifeq ($(DEB_HOST_ARCH),arm64)
+export EFI_ARCH := aa64
+endif
+
+cert=debian/vyatta_db.der
+
+COMMON_OPTIONS += \
+	MAKELEVEL=0 \
+	EFI_PATH=/usr/lib \
+	VENDOR_CERT_FILE=$(cert) \
+	EFIDIR=$(distributor) \
+	$(NULL)
+
+%:
+	dh $@ --parallel --with signobs
+
+override_dh_auto_clean:
+	dh_auto_clean -- MAKELEVEL=0
+
+override_dh_auto_build:
+	dh_signobs_getcert $(cert) DER
+	dh_auto_build -- $(COMMON_OPTIONS)
+
+override_dh_auto_install:
+	dh_auto_install --destdir=debian/tmp -- $(COMMON_OPTIONS)
+	./debian/signing-template.generate

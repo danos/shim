@@ -1,0 +1,4 @@
+0001-Makefile-do-not-run-git-on-clean-if-there-s-no-.git-.patch
+0002-shim-Properly-generate-absolute-paths-from-relative-.patch
+0003-shim-Prevent-shim-to-set-itself-as-a-second-stage-lo.patch
+gnu-efi_3.0.5.patch

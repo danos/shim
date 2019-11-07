@@ -1,0 +1,5 @@
+{"shim-unsigned": {
+	"files": [
+		{"sig_type": "efi", "file": "usr/lib/shim/shim@efi@.efi"}
+	]
+}}

@@ -1,0 +1,1 @@
+shim-amd64-signed: portable-executable-missing-security-features usr/lib/shim/*.efi.signed *
