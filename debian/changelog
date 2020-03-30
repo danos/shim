@@ -1,12 +1,13 @@
-shim (15+1533136590.3beb971-8) UNRELEASED; urgency=medium
+shim (15+1533136590.3beb971-7+deb10u1) UNRELEASED; urgency=medium
 
   [ Steve McIntyre ]
-  * Use --padding when calling pesign to generate hashes for the dbx
-    list, as recommended by Peter Jones. No actual changes needed in
-    our list of hashes at this point - they work out the same either
-    way.
+  * In the -helpers-ARCH-signed packages, change the version
+    dependency on shim-unsigned to be >= and not =. This will allow
+    for installation to still work in the window while we wait for the
+    template package to do its second trip through the
+    archive. Closes: #955356
 
- -- Steve McIntyre <93sam@debian.org>  Wed, 08 May 2019 02:05:01 +0100
+ -- Steve McIntyre <93sam@debian.org>  Mon, 30 Mar 2020 15:19:08 +0100
 
 shim (15+1533136590.3beb971-7) unstable; urgency=medium
 
