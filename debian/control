@@ -3,13 +3,12 @@ Section: admin
 Priority: optional
 Maintainer: Debian EFI team <debian-efi@lists.debian.org>
 Uploaders: Steve Langasek <vorlon@debian.org>, Steve McIntyre <93sam@debian.org>
-Standards-Version: 4.4.1
-Build-Depends: debhelper-compat (= 12),
-	       gnu-efi (>= 3.0u),
+Standards-Version: 4.3.0
+Build-Depends: debhelper-compat (= 9),
 	       sbsigntool,
 	       openssl,
 	       libelf-dev,
-	       gcc-10,
+	       gcc-8,
 	       dos2unix,
 	       pesign (>= 0.112-5)
 Vcs-Browser: https://salsa.debian.org/efi-team/shim

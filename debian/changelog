@@ -1,6 +1,7 @@
-shim (15.3-1) unstable; urgency=medium
+shim (15.3-1~deb10u1) buster; urgency=medium
 
-  [ Steve McIntyre ]
+  * Rebuild the new upstream version for buster
+  * Switch to gcc-8 for building
   * Switch to much-newer release with many fixes
     + Particularly pulling in SBAT changes for better revocation support
     + Remove all our old patches, no longer needed:
@@ -12,14 +13,13 @@ shim (15.3-1) unstable; urgency=medium
     + Now includes a vendor copy of gnu-efi with quite a few extra
       fixes needed.
     + Update copyright file to cover these changes
-  * Switch to using gcc-10 rather than gcc-9. Closes: #978521
   * Add dbx entries for all our existing grub binaries
     + They're insecure, let's break the chainloading hole.
   * Add Debian SBAT data
     + Add a Debian SBAT template, and rules to use it
     + Adds a build-dep on dos2unix
 
- -- Steve McIntyre <93sam@debian.org>  Tue, 23 Mar 2021 23:39:48 +0000
+ -- Steve McIntyre <93sam@debian.org>  Wed, 24 Mar 2021 01:09:20 +0000
 
 shim (15+1533136590.3beb971-10) unstable; urgency=medium
 
