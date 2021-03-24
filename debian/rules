@@ -15,8 +15,14 @@ else
 	distributor=debian
 endif
 
+deb_version             := $(shell dpkg-parsechangelog | sed -ne "s/^Version: \(.*\)/\1/p")
+upstream_version        := $(shell echo $(deb_version) | sed -e "s/-[^-]*$$//")
+plain_upstream_version  := $(shell echo $(upstream_version) | sed -e "s/+dfsg.*//")
+
 DBX_LIST = dbx.esl
 DBX_HASHES = debian/$(distributor)-dbx.hashes
+SBAT_IN = debian/sbat.$(distributor).csv.in
+SBAT_DATA = data/sbat.$(distributor).csv
 
 include /usr/share/dpkg/architecture.mk
 
@@ -31,38 +37,49 @@ export EFI_ARCH := ia32
 endif
 
 COMMON_OPTIONS += \
-	RELEASE=15 \
-	COMMIT_ID=3beb971b10659cf78144ddc5eeea83501384440c \
+	RELEASE=15.3 \
+	COMMIT_ID=XXXX \
 	MAKELEVEL=0 \
-	EFI_PATH=/usr/lib \
 	ENABLE_HTTPBOOT=true \
 	VENDOR_CERT_FILE=$(cert) \
 	VENDOR_DBX_FILE=$(DBX_LIST) \
 	EFIDIR=$(distributor) \
 	CROSS_COMPILE=$(DEB_HOST_GNU_TYPE)- \
-	CC=$(DEB_HOST_GNU_TYPE)-gcc-7 \
+	CC=$(DEB_HOST_GNU_TYPE)-gcc-10 \
 	$(NULL)
 
 $(DBX_LIST): $(DBX_HASHES)
+	./debian/generate_dbx_list $(EFI_ARCH) $< $@
+
+$(SBAT_DATA): $(SBAT_IN)
 	rm -f $@
 	set -e; \
-	for HASH in $$(grep -E [[:xdigit:]]{32} $<); do \
-            echo efisiglist -o $@ -a -h $$HASH; \
-            efisiglist -o $@ -a -h $$HASH; \
-        done
-	# Support an empty $(DBX_HASHES)
-	touch $@
+	sed -e "s/@DEB_VERSION@/$(deb_version)/g" \
+		-e "s/@UPSTREAM_VERSION@/$(plain_upstream_version)/g" \
+		< $(SBAT_IN) > $(SBAT_DATA)
+	# If we have an empty $(SBAT_DATA), delete
+	if [ ! -s $(SBAT_DATA) ]; then rm -f $(SBAT_DATA); fi
 
 %:
-	dh $@ --parallel
+	dh $@
 
 override_dh_auto_clean:
 	dh_auto_clean -- MAKELEVEL=0
-	rm -f $(DBX_LIST)
+	rm -f $(DBX_LIST) $(SBAT_DATA) sbat.*.csv
 
-override_dh_auto_build: $(DBX_LIST)
+override_dh_auto_build: $(DBX_LIST) $(SBAT_DATA)
 	dh_auto_build -- $(COMMON_OPTIONS)
 
 override_dh_auto_install:
 	dh_auto_install --destdir=debian/tmp -- $(COMMON_OPTIONS)
+	# Remove the copy of the source that's installed - we have git
+	# already...
+	rm -rf debian/tmp/usr
+	# And remove the extra removable-media copy of shim too, it's
+	# not needed for our build and causes debhelper to complain
+	rm -f debian/tmp/boot/efi/EFI/BOOT/BOOT*.EFI
 	./debian/signing-template.generate
+
+generate-gnu-efi:
+	git -C gnu-efi archive --prefix=gnu-efi/ HEAD | xz -9 \
+		> ../shim_$(plain_upstream_version).orig-gnu-efi.tar.xz
