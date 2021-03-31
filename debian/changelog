@@ -2,6 +2,7 @@ shim (15.4-1~deb10u1) buster; urgency=medium
 
   * New upstream release fixing more bugs: SBAT and arm64 support
   * Print sha256 checksums of the EFI binaries when the build is done
+  * Add one more patch from upstream to fix i386 binary relocations
 
  -- Steve McIntyre <93sam@debian.org>  Wed, 31 Mar 2021 19:56:02 +0100
 
