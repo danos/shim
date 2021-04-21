@@ -1,4 +1,4 @@
-shim (15.4-1~deb10u2) buster; urgency=medium
+shim (15.4-2~deb10u1) buster; urgency=medium
 
   * Add two further patches from upstream:
     + fix import_one_mok_state() after split
