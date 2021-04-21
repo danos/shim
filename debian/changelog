@@ -1,3 +1,12 @@
+shim (15.4-1~deb10u2) buster; urgency=medium
+
+  * Add two further patches from upstream:
+    + fix import_one_mok_state() after split
+    + Don't call QueryVariableInfo() on EFI 1.10 machines (e.g. older
+      Intel Mac machines)
+
+ -- Steve McIntyre <93sam@debian.org>  Wed, 21 Apr 2021 01:06:27 +0100
+
 shim (15.4-1~deb10u1) buster; urgency=medium
 
   * New upstream release fixing more bugs: SBAT and arm64 support
