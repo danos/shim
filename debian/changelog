@@ -1,3 +1,12 @@
+shim (15.4-3~deb10u1) buster; urgency=medium
+
+  * Add maintainer scripts to the template packages to manage
+    installing and removing fbXXX.efi and mmXXX.efi when we
+    install/remove the shim-helpers-$arch-signed packages.
+    Closes: #966845
+
+ -- Steve McIntyre <93sam@debian.org>  Mon, 03 May 2021 21:31:33 +0100
+
 shim (15.4-2~deb10u1) buster; urgency=medium
 
   * Add two further patches from upstream:
