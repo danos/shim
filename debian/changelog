@@ -1,4 +1,11 @@
-shim (15.4-4~deb10u1) buster; urgency=medium
+shim (15.4-5~deb10u1) buster; urgency=medium
+
+  * Add defensive code around calls to db_get. Don't fail if they
+    return errors.
+
+ -- Steve McIntyre <93sam@debian.org>  Sat, 08 May 2021 00:14:00 +0100
+
+shim (15.4-4~deb10u1) unstable; urgency=medium
 
   * Fix up those maintainer scripts - if we're not running on an EFI
     system then exit cleanly.
