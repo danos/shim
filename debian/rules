@@ -36,13 +36,19 @@ COMMON_OPTIONS += \
 	$(NULL)
 
 %:
+ifeq ($(filter noobs,$(DEB_BUILD_PROFILES)),)
 	dh $@ --parallel --with signobs
+else
+	dh $@ --parallel
+endif
 
 override_dh_auto_clean:
 	dh_auto_clean -- MAKELEVEL=0
 
 override_dh_auto_build:
+ifeq ($(filter noobs,$(DEB_BUILD_PROFILES)),)
 	dh_signobs_getcert $(cert) DER
+endif
 	dh_auto_build -- $(COMMON_OPTIONS)
 
 override_dh_auto_install:
