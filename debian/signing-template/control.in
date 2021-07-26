@@ -1,16 +1,15 @@
-Source: shim-@arch@-signed
+Source: shim-helpers-@arch@-signed
 Section: admin
 Priority: optional
-Maintainer: Philipp Matthias Hahn <pmhahn@debian.org>
-Standards-Version: 3.9.8
+Maintainer: Vyatta Package Maintainers <DL-vyatta-help@att.com>
+Standards-Version: 4.3.0
 Build-Depends: debhelper (>= 10.1~),
  sbsigntool [amd64 arm64 i386],
-Rules-Requires-Root: no
 
 Package: shim-@arch@-signed
 Architecture: @arch@
 Conflicts: shim (<< 14),
-Depends: shim-unsigned (= @version_binary@),
+Depends: shim-unsigned (= @version_binary@), ${misc:Depends}
 Built-Using: shim-unsigned (= @version_binary@)
 Provides: shim-signed
 Description: boot loader to chain-load signed boot loaders (signed by Debian)
