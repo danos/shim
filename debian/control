@@ -3,7 +3,7 @@ Section: admin
 Priority: optional
 Maintainer: Vyatta Package Maintainers <DL-vyatta-help@att.com>
 Standards-Version: 4.3.0
-Build-Depends: debhelper-compat (= 9),
+Build-Depends: debhelper-compat (= 12),
 	       dh-signobs <!noobs>,
 	       sbsigntool,
 	       openssl,
