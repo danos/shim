@@ -1,3 +1,11 @@
+shim (15.4-5~deb10u1-danos1) unstable; urgency=medium
+
+  [ Mike Manning ]
+  * Add upstream to tag in gbp.conf
+  * Address occasional build failure in gnu-efi
+
+ -- Mike Manning <mmanning@vyatta.att-mail.com>  Mon, 02 Aug 2021 19:34:34 +0100
+
 shim (15.4-5~deb10u1) buster; urgency=medium
 
   * Add defensive code around calls to db_get. Don't fail if they
