@@ -1,0 +1,21 @@
+Address occasional build failure in gnu-efi
+
+Work around an infrequent build failure observed on the build server
+when building the included gnu-efi which has replaced the dependency
+on the gnu-efi package. As the problem may occur for higher number
+of job slots e.g. -j6 or -j8, reduce the build to serial execution.
+---
+ Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/Makefile
++++ b/Makefile
+@@ -149,7 +149,7 @@
+ 	mkdir -p gnu-efi/lib gnu-efi/gnuefi
+ 	$(MAKE) -C gnu-efi \
+ 		ARCH=$(ARCH_GNUEFI) TOPDIR=$(TOPDIR)/gnu-efi \
+-		-f $(TOPDIR)/gnu-efi/Makefile \
++		-j1 -f $(TOPDIR)/gnu-efi/Makefile \
+ 		lib gnuefi inc
+ 
+ Cryptlib/libcryptlib.a:
