@@ -1,3 +1,9 @@
+shim (15.4-5~deb10u1-danos2) unstable; urgency=medium
+
+  * Set Debian Salsa to be our upstream in gbp.conf
+
+ -- Mike Manning <mmanning@vyatta.att-mail.com>  Mon, 02 Aug 2021 22:06:41 +0100
+
 shim (15.4-5~deb10u1-danos1) unstable; urgency=medium
 
   [ Mike Manning ]
