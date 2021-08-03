@@ -1,3 +1,10 @@
+shim (15.4-5~deb10u1-danos3) unstable; urgency=medium
+
+  * Modify debhelper to support Bullseye
+  * Remove gcc-8 dependency to support Bullseye
+
+ -- Mike Manning <mmanning@vyatta.att-mail.com>  Tue, 03 Aug 2021 16:34:59 +0100
+
 shim (15.4-5~deb10u1-danos2) unstable; urgency=medium
 
   * Set Debian Salsa to be our upstream in gbp.conf
